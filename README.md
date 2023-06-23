@@ -1,14 +1,12 @@
 ## Applicazione Votazione Comune
-Scopo del progetto è quello di realizzare un’applicazione CLI Python che gestisca il processo di votazione di proposte da parte degli studenti. 
-Il tutto utilizzando Redis come database. 
+L'applicazione CLI Python gestisce il processo di votazione di proposte da parte degli studenti; il tutto utilizzando Redis come database. 
 
-L’app Python permette di:
+L’app permette di:
 - Caricare le proposte - ogni proposta ha uno o più proponenti
 - Ogni studente può votare tutte le proposte che vuole, ma al massimo un voto per proposta
 - In ogni momento l’applicazione può mostrare la lista delle proposte ordinate per numero di voti
 
-#Questo è un esempio di come potrebbe essere l'output:
-
+Per semplificare, ecco un esempio di come potrebbe essere l'output:
 Proposte attuali:
 1. Macchina del caffè gratis (Gino): 123 voti
 2. Valutazione dei prof (Michela, Marco): 110 voti
