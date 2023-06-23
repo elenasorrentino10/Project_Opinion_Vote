@@ -34,6 +34,10 @@ def exit_program():
     ...
 
 
+def delete_user():
+    ...
+
+
 def flush_database():
     ...
 
