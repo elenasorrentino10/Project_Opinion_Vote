@@ -24,12 +24,12 @@ Per semplificare, ecco un ESEMPIO di come potrebbe essere l'output:
 n. Nuova proposta
 v. Vota una proposta
 n
-Descrivi la proposta
+- Descrivi la proposta:
 Vacanze di classe
-Chi sono i proponenti?
+- Chi sono i proponenti?:
 Maria, Mario, Susanna
 
--> Chi sei?
+-> Chi sei?:
 Francesco
-Che proposta voti? 
+- Che proposta voti?: 
 2
