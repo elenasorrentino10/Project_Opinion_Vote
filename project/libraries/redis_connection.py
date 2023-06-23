@@ -1,4 +1,4 @@
-from project.resources.connection_info import host, port, password
+from resources.connection_info import host, port, password
 import redis
 
 

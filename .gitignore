@@ -163,6 +163,3 @@ cython_debug/
 
 # Virtual environment folder
 .venv/
-
-# Connection info file
-project/resources/connection_info.py
