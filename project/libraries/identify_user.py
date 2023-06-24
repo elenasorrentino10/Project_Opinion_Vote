@@ -1,7 +1,7 @@
 import redis
 
 
-def identify_user(user_id: int, r: redis):
+def identify_user(r: redis.Redis):
     print('=== User Identification ===')
 
     email = input('Enter your email: ')
