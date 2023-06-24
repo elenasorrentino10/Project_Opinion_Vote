@@ -45,7 +45,7 @@ def main():
 
             case '4':  # Dai il tuo voto a una proposta
                 ...
-            case '5':  # Esci dal programma
+            case 'q':  # Esci dal programma
                 print("Exiting the program...")
                 break
             case 'd':  # Elimina l'utente
