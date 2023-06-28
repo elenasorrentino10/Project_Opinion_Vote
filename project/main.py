@@ -19,7 +19,8 @@ def main():
     while True:
         print('\n=== Vote my choice! ===')
         display_menu()
-        choice = input('Enter your action (1-6): ')
+        choice = input('Enter your action (1-7): ')
+        print()
 
         match choice:
             case '1':  # Identifica l'utente della applicazione
@@ -40,18 +41,18 @@ def main():
                 else:
                     vote_proposal(r, user_id)                
 
-            case 'q':  # Esci dal programma
+            case '5':  # Esci dal programma
                 print("Exiting the program...")
                 break
 
-            case 'd':  # Elimina l'utente
+            case '6':  # Elimina l'utente
                 if not user_id:
                     print("You need to identify yourself before deleting your user.")
                 else:
                     delete_user(user_id, r)
                     user_id = None
 
-            case 'dd':  # Svuota il database redis
+            case '7':  # Svuota il database redis
                 flush_database(r)
                 user_id = None
 

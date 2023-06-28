@@ -3,6 +3,6 @@ def display_menu():
           '2. Inserisci proposta',
           '3. Visualizza proposte',
           '4. Vota proposta',
-          'q. Esci/chiudi programma',
-          'd. Cancella utente',
-          'dd. Pulisci database flush-all', sep='\n')
+          '5. Esci/chiudi programma',
+          '6. Cancella utente',
+          '7. Pulisci database flush-all', sep='\n')
