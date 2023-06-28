@@ -1,6 +1,4 @@
-import redis
-
-def scrivi_proposta(r, user_id):
+def insert_proposal(r, user_id):
     messaggio = input("Inserisci un nuovo messaggio: ")
 
     # Controllo se il messaggio è già presente nel database
