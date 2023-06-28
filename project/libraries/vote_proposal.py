@@ -1,13 +1,13 @@
 def vote_proposal(r, user_id):
-    messaggio = input("Insert your proposal: ")
+    proposal = input("Insert your proposal: ")
 
-    # Controllo se l'utente ha già votato il messaggio
-    if r.sismember(f"voti:{messaggio}", user_id):
+    # Check if the message is already present in the database
+    if r.sismember(f"votes:{proposal}", user_id):
         print("You've already voted this proposal!")
     else :
-        # Incremento il numero di voti del messaggio nel database
-         r.zincrby("messaggi", 1, messaggio)
-        # Aggiungo l'utente ai votanti del messaggio
-         r.sadd(f"voti:{messaggio}", user_id)
+        # Increment the score of the message
+         r.zincrby("proposals", 1, proposal)
+        # Add the user to the list of voters
+         r.sadd(f"votes:{proposal}", user_id)
 
          print("Vote saved successfully!")

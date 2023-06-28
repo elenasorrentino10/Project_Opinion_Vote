@@ -1,13 +1,13 @@
 def insert_proposal(r, user_id):
-    messaggio = input("Inserisci un nuovo messaggio: ")
+    proposal = input("Insert your proposal: ")
 
-    # Controllo se il messaggio è già presente nel database
-    if r.zrank("messaggi", messaggio) is not None:
-        # Se il messaggio è già presente, aggiungo l'utente come propositore del messaggio
-        r.sadd(f"propositori:{messaggio}", user_id)
+    # Check if the message is already present in the database
+    if r.zrank("proposals", proposal) is not None:
+        # If the message is already present, add the user to the list of proposers
+        r.sadd(f"proposer(s):{proposal}", user_id)
     else:
-        # Se il messaggio non è presente, lo inserisco nel database
-        r.zadd("messaggi", {messaggio: 0})
-        r.sadd(f"propositori:{messaggio}", user_id)
+        # If the message is not present, add it to the database
+        r.zadd("proposals", {proposal: 0})
+        r.sadd(f"proposer(s):{proposal}", user_id)
 
-    print("Proposta salvata con successo!")
+    print("Proposal inserted successfully!")
