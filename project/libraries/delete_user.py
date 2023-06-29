@@ -14,5 +14,3 @@ def delete_user(user_id: int, r: redis.Redis):
         print("User deleted successfully!")
     else:
         print("User delete operation canceled.")
-
-

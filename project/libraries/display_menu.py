@@ -1,3 +1,4 @@
+
 def display_menu():
     print('1. Identify user',
           '2. Insert proposal',
