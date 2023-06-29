@@ -1,11 +1,11 @@
 from libraries.redis_connection import redis_connection
+from libraries.display_menu import display_menu
 from libraries.identify_user import identify_user
+from libraries.insert_proposal import insert_proposal
+from libraries.display_proposals import display_proposals
+from libraries.vote_proposal import vote_proposal
 from libraries.delete_user import delete_user
 from libraries.flush_database import flush_database
-from libraries.display_menu import display_menu
-from libraries.insert_proposal import insert_proposal
-from libraries.vote_proposal import vote_proposal
-from libraries.display_proposals import display_proposals
 
 
 def main():
@@ -19,40 +19,40 @@ def main():
         print()
 
         match choice:
-            case '1':  # Identifica l'utente della applicazione
+            case '1':  # Identify user
                 user_id = identify_user(r)
 
-            case '2':  # Inserisci una proposta da votare
+            case '2':  # Insert proposal
                 if not user_id:
                     print('You need to identify yourself before writing a message!')
                 else:
                     insert_proposal(r, user_id)
 
-            case '3':  # Visualizza le proposte da votare
+            case '3':  # View proposals
                 display_proposals(r)
 
-            case '4':  # Dai il tuo voto a una proposta
+            case '4':  # Vota a proposal
                 if not user_id:
                     print('You need to identify yourself before writing a message!')
                 else:
                     vote_proposal(r, user_id)
 
-            case '5':  # Elimina l'utente
+            case '5':  # Delete user
                 if not user_id:
                     print("You need to identify yourself before deleting your user.")
                 else:
                     delete_user(user_id, r)
                     user_id = None
 
-            case '6':  # Svuota il database redis
+            case '6':  # Flush/Clear Redis database
                 flush_database(r)
                 user_id = None
 
-            case '7':  # Esci dal programma
+            case '7':  # Exit/Quit
                 print("Exiting the program...")
                 break
 
-            case _:
+            case _:  # Invalid input handling
                 print("Invalid choice. Please try again.")
 
 

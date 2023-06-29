@@ -23,9 +23,11 @@ def identify_user(r: redis.Redis):
         user_id = int(user_id)
         user_data = r.hgetall(f'user:{user_id}')
 
-        if user_data[b'username'].decode() != username or user_data[b'password'].decode() != password:
+        if user_data[b'username'].decode() != username or \
+            user_data[b'password'].decode() != password:
             print('User verification failed. Invalid username or password.')
-            return None
+            return
+        
         print(f'User verified with ID: {user_id}')
 
     return user_id

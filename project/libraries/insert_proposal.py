@@ -8,7 +8,7 @@ def insert_proposal(r: redis.Redis, user_id: int):
     proposal = input('Insert your proposal: ').lower().strip()
 
     if find_similarity(r, proposal):
-        print('This proposal is too similar to another one. Please try again.')
+        print('This proposal is very similar to another one.')
         choice = input('Do you want to save it anyway? (y/n) ').lower().strip()
 
         if choice != 'y':

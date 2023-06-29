@@ -1,5 +1,4 @@
 import redis
-import json
 
 
 def display_proposals(r: redis.Redis):
