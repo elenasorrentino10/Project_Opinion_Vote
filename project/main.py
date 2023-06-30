@@ -9,46 +9,46 @@ from libraries.flush_database import flush_database
 
 
 def main():
-    user_id = None
+    user = None
     r = redis_connection()
 
     while True:
         print('\n=== Vote my choice! ===')
         display_menu()
-        choice = input('Enter your action (1-7): ')
+        choice = input('Enter your action (1-6): ')
         print()
 
         match choice:
             case '1':  # Identify user
-                user_id = identify_user(r)
+                user = identify_user(r)
 
             case '2':  # Insert proposal
-                if not user_id:
-                    print('You need to identify yourself before writing a message!')
+                if not user:
+                    print('You need to identify yourself before submitting a proposal!')
                 else:
-                    insert_proposal(r, user_id)
+                    insert_proposal(r, user)
 
             case '3':  # View proposals
                 display_proposals(r)
 
-            case '4':  # Vota a proposal
-                if not user_id:
-                    print('You need to identify yourself before writing a message!')
+            case '4':  # Vote a proposal
+                if not user:
+                    print('You need to identify yourself before voting a proposal!')
                 else:
-                    vote_proposal(r, user_id)
+                    vote_proposal(r, user)
 
-            case '5':  # Delete user
-                if not user_id:
-                    print("You need to identify yourself before deleting your user.")
+            case '5':  # Delete account
+                if not user:
+                    print("You need to identify yourself before deleting your account.")
                 else:
-                    delete_user(user_id, r)
-                    user_id = None
+                    delete_user(user, r)
+                    user = None
 
             case '6':  # Flush/Clear Redis database
                 flush_database(r)
-                user_id = None
+                user = None
 
-            case '7':  # Exit/Quit
+            case '0':  # Exit/Quit
                 print("Exiting the program...")
                 break
 

@@ -7,8 +7,10 @@ def vote_proposal(r: redis.Redis, user_id: int):
         print('No proposals found!')
         return
 
+    proposal_display = " - " + str(proposal_index) if proposal_index > 1 else ""
+
     while True:
-        proposal_id = int(input(f'Insert the ID of the proposal you want to vote for (1 - {proposal_index}): '))
+        proposal_id = int(input(f'Insert the ID of the proposal you want to vote for (1{proposal_display}): '))
         if 1 <= proposal_id <= proposal_index:
             break
         else:

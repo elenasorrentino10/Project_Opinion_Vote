@@ -21,6 +21,9 @@ def display_proposals(r: redis.Redis):
         print('No votes found!')
         return
 
-    for index, data in enumerate(zip(proposals, users, votes)):
-        proposal, user, vote = data
-        print(f'Proposal {index} | User: {user} | Votes: {vote} \n {proposal}')
+    print("The currently active proposals are: ")
+    for index, data in enumerate(zip(proposals, users), start=1):
+        # algoritmo che ranka in base al numero voti e di conseguenza prendo le info
+        proposal, user = data
+        voti = r.llen(f"proposal_votes-{index}")
+        print(f'{index}. {proposal.title()}(users che hanno votato) - {voti} Votes.')

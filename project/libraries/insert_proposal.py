@@ -4,8 +4,9 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 
 def insert_proposal(r: redis.Redis, user_id: int):
-    proposal_id = r.zcard('votes') + 1
     proposal = input('Insert your proposal: ').lower().strip()
+    current_proposal_id = r.zcard('votes') + 1
+    proposal_tuple = (current_proposal_id, proposal, user_id)  # (id, text, user)
 
     if find_similarity(r, proposal):
         print('This proposal is very similar to another one.')
@@ -15,10 +16,10 @@ def insert_proposal(r: redis.Redis, user_id: int):
             print('Proposal not saved!')
             return
 
-    r.hset(f'proposal:{proposal_id}', 'user', user_id)
-    r.hset(f'proposal:{proposal_id}', 'text', proposal)
-    r.zincrby('votes', 1, proposal_id)
-    r.lpush(f'proposal_votes-{proposal_id}', user_id)
+    r.hset(f'proposal:{current_proposal_id}', 'user', user_id)
+    r.hset(f'proposal:{current_proposal_id}', 'text', proposal)
+    r.zincrby('votes', 1, current_proposal_id)
+    r.lpush(f'proposal_votes-{current_proposal_id}', user_id)
     print('Proposal saved successfully!')
 
 
