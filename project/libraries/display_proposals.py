@@ -1,29 +1,20 @@
 import redis
+from libraries.utils.scored_proposals import get_scored_proposals
+from libraries.utils.proposal_voters import get_proposal_voters
 
 
-def display_proposals(r: redis.Redis):
-    proposals = r.keys('proposal:*')
-    if not proposals:
+def display_proposals(r: redis.Redis, get_proposals=False):
+    print('=== Proposals ===')
+
+    scored_proposals = get_scored_proposals(r)
+    if not scored_proposals:
         print('No proposals found!')
         return
-    proposals = [r.hgetall(proposal) for proposal in proposals]
-    proposals = [proposal[b'text'].decode('utf-8') for proposal in proposals]
 
-    users = r.keys('user:*')
-    if not users:
-        print('No users found!')
-        return
-    users = [r.hgetall(user) for user in users]
-    users = [user[b'username'].decode('utf-8') for user in users]
+    print('Available proposals:')
+    for index, proposal_tuple in enumerate(scored_proposals, start=1):
+        proposal = proposal_tuple[0].decode('utf-8')
+        _, proposer = get_proposal_voters(r, proposal, get_proposer=True)
+        print(f'{index}. {proposal}({proposer}) - {int(proposal_tuple[1])} Votes')
 
-    votes = r.zrange('votes', 0, -1, withscores=True)
-    if not votes:
-        print('No votes found!')
-        return
-
-    print("The currently active proposals are: ")
-    for index, data in enumerate(zip(proposals, users), start=1):
-        # algoritmo che ranka in base al numero voti e di conseguenza prendo le info
-        proposal, user = data
-        voti = r.llen(f"proposal_votes-{index}")
-        print(f'{index}. {proposal.title()}(users che hanno votato) - {voti} Votes.')
+    return scored_proposals if get_proposals else None
