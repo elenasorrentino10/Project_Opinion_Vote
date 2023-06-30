@@ -1,4 +1,5 @@
 import redis
+from libraries.utils.scored_proposals import get_scored_proposals
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import json
@@ -7,13 +8,13 @@ import json
 def insert_proposal(r: redis.Redis, username: str):
     proposal = input('Insert your proposal: ').lower().strip()
 
-    # if find_similarity(r, proposal):
-    #     print('This proposal is very similar to another one.')
-    #     choice = input('Do you want to save it anyway? (y/n) ').lower().strip()
+    if find_similarity(r, proposal):
+        print('This proposal is very similar to another one.')
+        choice = input('Do you want to save it anyway? (y/n) ').lower().strip()
 
-    #     if choice != 'y':
-    #         print('Proposal not saved!')
-    #         return
+        if choice != 'y':
+            print('Proposal not saved!')
+            return
 
     if r.hexists('proposals', proposal):
         print('This proposal already exists!')
@@ -36,9 +37,10 @@ def insert_proposal(r: redis.Redis, username: str):
 
 
 def find_similarity(r: redis.Redis, proposal: str) -> bool:
-    # Get all the proposals from the proposals hmap
-    proposals = r.hgetall('proposals').keys()
-    proposals = [proposal.decode() for proposal in proposals]
+    # Get all the proposals
+    proposals = get_scored_proposals(r)
+    # Decode the proposals
+    proposals = [proposal_tuple[0].decode('utf-8') for proposal_tuple in proposals]
     proposals.append(proposal)
 
     if len(proposals) != 1:
