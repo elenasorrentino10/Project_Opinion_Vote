@@ -4,10 +4,10 @@ Utilizza Redis come database e ha come focus principale quello dell'efficienza -
 
 L’app PERMETTE di:
 1. Caricare le proposte
-   - Ogni proposta ha uno o più proponenti, i quali saranno identificati con un username univoco
+   - Ogni proposta ha un proponente, i quali saranno identificati con un username univoco
    - Inoltre, ogni proposta non avrà duplicati
    - Quindi, se un utente dovesse proporre idee simili ad altre già esistenti, l'app lo segnalerà e suggerirà l'opzione simile, che l'utente potrà decidere se 
-     votare oppure creare comunque una nuova proposta. [da rivedere]
+     votare oppure creare comunque una nuova proposta.
 2. Ogni studente può votare tutte le proposte che vuole, ma al massimo un voto per proposta
 3. In ogni momento l’applicazione può mostrare la lista delle proposte ordinate per numero di voti
 
