@@ -1,35 +1,113 @@
-## APPLICAZIONE PER IL VOTO DI PROPOSTE DA PARTE DI STUDENTI - "StudentProposalVote"
-L'applicazione CLI Python gestisce il processo di votazione di proposte da parte degli studenti.
-Utilizza Redis come database e ha come focus principale quello dell'efficienza - eccetto per la parte opzionale di gestione delle proposte simili.
+# Vote My Choice
 
-L’app PERMETTE di:
-1. Caricare le proposte
-   - Ogni proposta ha un proponente, i quali saranno identificati con un username univoco
-   - Inoltre, ogni proposta non avrà duplicati
-   - Quindi, se un utente dovesse proporre idee simili ad altre già esistenti, l'app lo segnalerà e suggerirà l'opzione simile, che l'utente potrà decidere se 
-     votare oppure creare comunque una nuova proposta.
-2. Ogni studente può votare tutte le proposte che vuole, ma al massimo un voto per proposta
-3. In ogni momento l’applicazione può mostrare la lista delle proposte ordinate per numero di voti
+This is a CLI (command-line interface) application written in Python that facilitates the process of voting on proposals by users. The application utilizes Redis as its database and focuses on efficiency. It allows users to perform various actions such as identifying themselves, submitting proposals, viewing proposals and voting on proposals.
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Features
 
-Per semplificare, ecco un ESEMPIO di come potrebbe essere l'output:
+- *Identify user*: Users can identify themselves before performing any actions in the application.
+- *Insert proposal*: Users can submit proposals after identifying themselves. Duplicate proposals are not allowed. If a proposal is similar to one already present, the application will prompt the user to choose between voting for the existing proposal or inserting their proposal anyway if it differs from the existing one.
+- *View proposals*: Users can view the list of proposals currently available, ordered by the number of votes.
+- *Vote on a proposal*: Users can vote on proposals after identifying themselves. Each user can only vote once for a specific proposal.
+- *Delete account*: Users can delete their account, but they need to identify themselves first.
+- *Flush/Clear Redis database*: Users can clear the Redis database, removing all proposals and user information. This is mainly for "admin" use.
 
--> Proposte attuali:
-1. Macchina del caffè gratis (Gino): 123 voti
-2. Valutazione dei prof (Michela, Marco): 110 voti
-3. Campo Basket aperto di notte (Gino, Pino): 34 voti
+## Getting Started
 
--> Scegli:
-n. Nuova proposta
-v. Vota una proposta
-n
-- Descrivi la proposta:
-Vacanze di classe
-- Chi sono i proponenti?:
-Maria, Mario, Susanna
+1. To get started you need to clone the repository to your local machine, you can do it with the following command:
 
--> Chi sei?:
-Francesco
-- Che proposta voti?: 
-2
+```
+git clone https://github.com/elenasorrentino10/Project_Opinion_Vote.git
+```
+
+2. You then need to change to the cloned repository, you can do it with the following command:
+
+```
+cd Project_Opinion_Vote
+```
+
+3. To use this application, you need to have Python installed on your system. Additionally, ensure that the required libraries are installed by running the following command:
+
+```
+pip install -r requirements.txt
+```
+
+4. Once the dependencies are installed, you can execute the `main.py` file to start the application. First you need to enter into the "project" folder with the following command:
+
+```
+cd project
+```
+- Then you can run the main file:
+```
+python main.py
+```
+
+## Usage
+
+1. Run the application by executing the `main.py` file.
+2. The application will display a menu with several options.
+3. Enter the number corresponding to the action you want to perform and press Enter.
+4. Follow the instructions prompted by the application for each action.
+
+## Example Usage
+
+- Actions display
+```
+=== Vote my choice! ===
+1. Identify user
+2. Insert proposal
+3. View proposals
+4. Vote a proposal
+5. Delete account
+6. Flush/Clear Redis database
+0. Exit/Quit
+Enter your action (1-6): 2
+
+You need to identify yourself before submitting a proposal!
+```
+- User identification
+```
+1. Identify user
+
+Please enter your username: John
+```
+- Submitting proposals
+```
+2. Insert proposal
+
+Enter the proposal description: Free snacks in the cafeteria
+```
+- Displaying all current proposals
+```
+3. View proposals
+
+Current proposals:
+1. Free snacks in the cafeteria (Alice): 1 votes
+```
+- Voting a proposal
+```
+4. Vote a proposal
+
+Enter the proposal number you want to vote for: 1
+```
+- When not signed-in
+```
+4. Vote a proposal
+
+You need to identify yourself before voting on a proposal!
+```
+- Account deletion
+```
+5. Delete account
+
+Deleting your account...
+```
+- Clearing Database
+```
+6. Flush/Clear Redis database
+
+Exiting the program...
+```
+
+## Note
+
+This application was developed for educational purposes and may not be suitable for production environments.
