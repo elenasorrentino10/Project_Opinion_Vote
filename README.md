@@ -31,7 +31,23 @@ cd Project_Opinion_Vote
 pip install -r requirements.txt
 ```
 
-4. Once the dependencies are installed, you can execute the `main.py` file to start the application. First you need to enter into the "project" folder with the following command:
+4. Set the connection details of your Redis server as environment variables. The names are listed in `.env.example`. Never commit real values to the repository.
+
+```
+export REDIS_HOST=your-redis-host
+export REDIS_PORT=6379
+export REDIS_PASSWORD=your-redis-password
+```
+
+On Windows PowerShell, use `$env:REDIS_HOST = "your-redis-host"`, and the same for the other two.
+
+If you do not have a Redis server, you can start a local one with Docker. In this case use `localhost` as the host, `6379` as the port and the password you choose in the command:
+
+```
+docker run -d --name vote-redis -p 127.0.0.1:6379:6379 redis:7 --requirepass choose-a-password
+```
+
+5. Once the dependencies are installed and the variables are set, you can execute the `main.py` file to start the application. First you need to enter into the "project" folder with the following command:
 
 ```
 cd project
@@ -108,6 +124,20 @@ Deleting your account...
 Exiting the program...
 ```
 
+## Security
+
+- Redis credentials are read from environment variables and are not stored in the code.
+- User passwords are stored as salted `scrypt` hashes, using only the Python standard library.
+- The flush action is not restricted: any user can clear the whole database.
+
+## Tests
+
+From the repository root:
+
+```
+python -m unittest discover tests
+```
+
 ## Note
 
-This application was developed for educational purposes and may not be suitable for production environments.
+This application was developed in 2023 as a team project for educational purposes and may not be suitable for production environments. The commit history shows who contributed what.
