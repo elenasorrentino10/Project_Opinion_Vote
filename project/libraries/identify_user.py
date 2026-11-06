@@ -1,20 +1,26 @@
+from getpass import getpass
+
 import redis
+
+from libraries.passwords import hash_password, verify_password
 
 
 def identify_user(r: redis.Redis):
     print('=== User Identification ===')
 
     username = input('Enter your username: ')
-    password = input('Enter your password: ')
+    password = getpass('Enter your password: ')
 
-    if username.encode() not in r.hgetall(f'users'):
-        r.hset(f'users', username, password)
+    stored_password = r.hget('users', username)
+
+    if stored_password is None:
+        r.hset('users', username, hash_password(password))
         print('New user created successfully!')
     else:
-        if password.encode() != r.hget(f'users', username):
+        if not verify_password(password, stored_password.decode()):
             print('Invalid password, try again.')
             return
-        
+
         print(f'\nUser verified successfully! Welcome back {username}!')
 
     return username
