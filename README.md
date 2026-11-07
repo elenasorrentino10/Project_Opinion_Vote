@@ -11,6 +11,23 @@ This is a CLI (command-line interface) application written in Python that facili
 - *Delete account*: Users can delete their account, but they need to identify themselves first.
 - *Flush/Clear Redis database*: Users can clear the Redis database, removing all proposals and user information. This is mainly for "admin" use.
 
+## Data model
+
+The application uses three Redis keys:
+
+```mermaid
+flowchart LR
+    U["<b>users</b> (Hash)<br/>username → hashed password"]
+    P["<b>proposals</b> (Hash)<br/>proposal text → JSON with proposer and voters"]
+    V["<b>votes</b> (Sorted Set)<br/>proposal text → number of votes"]
+    U -- "username saved as proposer or voter" --> P
+    P -- "same proposal text" --> V
+```
+
+- **Insert proposal:** adds the proposal to `proposals`, with the user as proposer and first voter, and to `votes` with score 1.
+- **Vote:** increases the score in `votes` by 1 and adds the user to the voters in `proposals`.
+- **View proposals:** reads `votes` from the highest to the lowest score.
+
 ## Getting Started
 
 1. To get started you need to clone the repository to your local machine, you can do it with the following command:
